@@ -10,14 +10,14 @@ export default async function handler(req, res) {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS,
     },
   });
 
   try {
     await transporter.sendMail({
-      from: `"Lịch thi đấu" <${process.env.MAIL_USER}>`,
+      from: `"Lịch thi đấu" <${process.env.EMAIL_USER}>`,
       to: email,
       subject: `${name} đã đăng ký nhận lịch thành công`,
       html: `<p>${name} đã đăng ký thành công để nhận thông báo <strong>trận đấu</strong> và <strong>kết quả</strong>.</p>`,
