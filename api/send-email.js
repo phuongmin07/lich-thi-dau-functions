@@ -5,7 +5,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method not allowed' });
   }
 
-  const { email } = req.body;
+  const { name, email } = req.body;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -19,8 +19,8 @@ export default async function handler(req, res) {
     await transporter.sendMail({
       from: `"Lịch thi đấu" <${process.env.MAIL_USER}>`,
       to: email,
-      subject: "Đăng ký nhận lịch thành công ✔",
-      html: `<p>🎉 Bạn đã đăng ký thành công để nhận thông báo <strong>trận đấu</strong> và <strong>kết quả</strong>.</p>`,
+      subject: `${name} đã đăng ký nhận lịch thành công`,
+      html: `<p>${name} đã đăng ký thành công để nhận thông báo <strong>trận đấu</strong> và <strong>kết quả</strong>.</p>`,
     });
 
     res.status(200).json({ message: 'Email sent successfully' });
