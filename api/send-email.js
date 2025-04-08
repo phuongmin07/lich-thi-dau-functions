@@ -1,6 +1,17 @@
 const nodemailer = require('nodemailer');
 
 export default async function handler(req, res) {
+  // Bật CORS
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  // Nếu trình duyệt gửi preflight OPTIONS thì trả về luôn
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // Chỉ chấp nhận POST
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
